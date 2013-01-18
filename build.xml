@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="RandomTextGen" default="run" basedir=".">
+    <property name="src" value="src"/>
+    <property name="bin" value="bin"/>
+    <property name="main" value="RandomTextGenerator"/>
+    <property name="input" value="tao_te_ching.txt"/>
+
+    <target name="compile" depends="clean">
+        <mkdir dir="${bin}"/>
+        <javac srcdir="${src}" destdir="${bin}" includeantruntime="false"/>
+    </target>
+
+    <target name="jar" depends="compile">
+        <jar destfile="${bin}/${main}.jar" basedir="${bin}">
+            <manifest>
+                <attribute name="Main-Class" value="${main}"/>
+            </manifest>
+        </jar>
+    </target>
+
+    <target name="run" depends="jar">
+        <java jar="${bin}/${main}.jar" fork="true">
+            <arg value="${input}"/>
+        </java>
+    </target>
+
+    <target name="clean">
+        <delete dir="${bin}"/>
+    </target>
+
+</project>
